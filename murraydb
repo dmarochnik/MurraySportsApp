@@ -1,0 +1,222 @@
+CREATE DATABASE murraydb;
+
+USE murraydb;
+
+
+CREATE TABLE Logins
+(
+   	LID INT NOT NULL PRIMARY KEY,
+   	UserName VARCHAR (50) NOT NULL,
+   	PasswordHash VARCHAR (32) NOT NULL,
+   	UserLevel INT
+);
+CREATE TABLE SecurityQA
+(
+   	SecID INT NOT NULL PRIMARY KEY,
+   	SecurityQ VARCHAR (300) NOT NULL,
+   	SecurityA VARCHAR (30) NOT NULL
+);
+CREATE TABLE Coaches
+(
+   	CID INT NOT NULL PRIMARY KEY,
+   	FName VARCHAR (20) NOT NULL,
+   	LName VARCHAR (30) NOT NULL
+);
+CREATE TABLE Sports
+(
+   	SID INT NOT NULL PRIMARY KEY,
+   	SportName VARCHAR (20) NOT NULL,
+   	SportLevel VARCHAR (20) NOT NULL,
+	SportGender CHAR(10)
+);
+CREATE TABLE LogSec
+(
+	LID INT NOT NULL REFERENCES Logins(LID),
+	SecID INT NOT NULL REFERENCES SecurityQA(SecID)
+);
+CREATE TABLE Users
+(
+   	UID INT NOT NULL PRIMARY KEY,
+   	FName VARCHAR (20) NOT NULL,
+   	LName VARCHAR (30) NOT NULL,
+	Email VARCHAR(100),
+	PhoneNumber VARCHAR(13),
+	LID INT NOT NULL REFERENCES Logins(LID)
+);
+CREATE TABLE Players
+(
+   	PID INT NOT NULL PRIMARY KEY,
+   	FName VARCHAR (20) NOT NULL,
+   	LName VARCHAR (30) NOT NULL,
+	Age INT,
+    SchoolGrade VARCHAR (3),
+	RosterImage BLOB,
+	UID INT NOT NULL REFERENCES Users(UID)
+);
+CREATE TABLE SportsTeamDetails
+(
+   	STD INT NOT NULL PRIMARY KEY,
+   	TeamName VARCHAR (20) NOT NULL,
+    TeamAgeGroup VARCHAR (20),
+	TeamSize INT,
+	SID INT NOT NULL REFERENCES Sports(SID)
+);
+CREATE TABLE PlayerSportsList
+(
+	PID INT NOT NULL REFERENCES Players(PID),
+	SID INT NOT NULL REFERENCES Sports(SID),
+	STD INT NOT NULL REFERENCES SportsTeamDetails(SID)
+);
+CREATE TABLE CoachTeam
+(
+	STD INT NOT NULL REFERENCES SportsTeamDetails(STD),
+	CID INT NOT NULL REFERENCES Coaches(CID)
+);
+
+
+
+insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1000, 'JamesB1979','Basketball145!', 2);
+insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1001, 'MaryMaryHK','MurrayRocks$$', 2);
+insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1002, 'BOSSMAN','EltonJ0@hn', 2);
+insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1003, 'CheesyGal','GoudaLove345!', 2);
+insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1004, 'MorrisL','ParksRec10!!', 1);
+
+SELECT * FROM Logins;
+
+update logins set PasswordHash = MD5('Basketball145!') where LID = 1000;
+update logins set PasswordHash = MD5('MurrayRocks$$') where LID = 1001;
+update logins set PasswordHash = MD5('EltonJ0@hn') where LID = 1002;
+update logins set PasswordHash = MD5('GoudaLove345!') where LID = 1003;
+update logins set PasswordHash = MD5('ParksRec10!!') where LID = 1004;
+
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (200, 'What city were you born in?','Orem');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (201, 'What was the name of your first pet?','Rocky');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (202, 'What was your childhood nickname?','Shrimp');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (203, 'What city were you born in?','San Diego');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (204, 'What was the name of your first pet?','Steven');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (205, 'What was your childhood nickname?','Bean');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (206, 'What city were you born in?','Lehi');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (207, 'What was the name of your first pet?','Smokey');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (208, 'What was your childhood nickname?','Blondie');
+insert into SecurityQA (SecID, SecurityQ, SecurityA) values (209, 'What city were you born in?','Payson');
+
+
+insert into LogSec (LID, SecID) values (1000, 200);
+insert into LogSec (LID, SecID) values (1000, 201);
+insert into LogSec (LID, SecID) values (1001, 202);
+insert into LogSec (LID, SecID) values (1001, 203);
+insert into LogSec (LID, SecID) values (1002, 204);
+insert into LogSec (LID, SecID) values (1002, 205);
+insert into LogSec (LID, SecID) values (1003, 206);
+insert into LogSec (LID, SecID) values (1003, 207);
+insert into LogSec (LID, SecID) values (1004, 208);
+insert into LogSec (LID, SecID) values (1004, 209);
+
+
+insert into Users (UID, FName, LName, Email, PhoneNumber, LID) values (2000, 'James', 'Rogers', 'Jrogers@gmail.com', '385-434-9000', 1000);
+insert into Users (UID, FName, LName, Email, PhoneNumber, LID) values (2001, 'Mary', 'Smith', 'mary.smith@gmail.com', '385-677-9120', 1001);
+insert into Users (UID, FName, LName, Email, PhoneNumber, LID) values (2002, 'Bob', 'Jones', 'RoberNJ@hotmail.com', '801-204-1200', 1002);
+insert into Users (UID, FName, LName, Email, PhoneNumber, LID) values (2003, 'Cheryl', 'Swenson', 'Swenson2010@yahoo.com', '385-634-0150', 1003);
+insert into Users (UID, FName, LName, Email, PhoneNumber, LID) values (2004, 'Liesl', 'Morris', 'l.morris@gmail.com', '801-222-5100', 1004);
+
+
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3000, 'John', 'Rogers', 10, 5, NULL, 2000);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3001, 'Mary', 'Rogers', 12, 7, NULL, 2000);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3002, 'Sarah', 'Rogers', 13, 9, NULL, 2000);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3003, 'Joe', 'Smith', 10, 5, NULL, 2001);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3004, 'Daniel', 'Smith', 13, 9, NULL, 2001);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3005, 'McKayla', 'Smith', 12,  7, NULL, 2001);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3006, 'Richard', 'Smith', 8, 3, NULL, 2001);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3007, 'Nicole', 'Smith', 15, 10, NULL, 2001);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3008, 'Jillian', 'Jones', 10, 5, NULL, 2002);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3009, 'Jason', 'Jones', 7, 2, NULL, 2002);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3010, 'Joey', 'Jones', 7, 2, NULL, 2002);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3011, 'Diana', 'Jones', 15, 10, NULL, 2002);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3012, 'Daisy', 'Jones', 13, 9, NULL, 2002);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3013, 'Derek', 'Jones', 12, 7, NULL, 2002);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3014, 'Shane', 'Swenson', 15, 10, NULL, 2003);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3015, 'Sherrie', 'Swenson', 13, 9, NULL, 2003);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3016, 'Caden', 'Swenson', 8, 3, NULL, 2003);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3017, 'Kara', 'Swenson', 7, 3, NULL, 2003);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3018, 'Katrina', 'Morris', 8, 3, NULL, 2004);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3019, 'Brett', 'Morris', 7, 3, NULL, 2004);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3020, 'Matilda', 'Morris', 12, 7, NULL, 2004);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3021, 'Jane', 'Morris', 15, 10, NULL, 2004);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3022, 'Brianna', 'Rogers', 7, 3, NULL, 2000);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3023, 'Bryan', 'Rogers', 10, 5, NULL, 2000);
+insert into Players (PID, FName, LName, Age, SchoolGrade, RosterImage, UID) values (3024, 'Michael', 'Swenson', 13, 9, NULL, 2003);
+
+
+insert into Sports (SID, SportName, SportLevel, SportGender) values (5000, 'Spring Soccer', 'GRADE 7-12', 'Coed');
+insert into Sports (SID, SportName, SportLevel, SportGender) values (5001, 'Volleyball', 'GRADE 7-9', 'Coed');
+insert into Sports (SID, SportName, SportLevel, SportGender) values (5002, 'Basketball', 'GRADE 10', 'M');
+insert into Sports (SID, SportName, SportLevel, SportGender) values (5003, 'Basketball', 'GRADE 7-12', 'F');
+insert into Sports (SID, SportName, SportLevel, SportGender) values (5004, 'Youth Cross Country', 'White Age 6-7', 'Coed');
+insert into Sports (SID, SportName, SportLevel, SportGender) values (5005, 'Youth Cross Country', 'Green Age 13-15', 'Coed');
+
+
+
+
+insert into PlayerSportsList (PID, SID) values (3000, 5000);
+insert into PlayerSportsList (PID, SID) values (3001, 5001);
+insert into PlayerSportsList (PID, SID) values (3002, 5001);
+insert into PlayerSportsList (PID, SID) values (3003, 5000);
+insert into PlayerSportsList (PID, SID) values (3004, 5005);
+insert into PlayerSportsList (PID, SID) values (3005, 5003);
+insert into PlayerSportsList (PID, SID) values (3006, 5004);
+insert into PlayerSportsList (PID, SID) values (3007, 5003);
+insert into PlayerSportsList (PID, SID) values (3008, 5000);
+insert into PlayerSportsList (PID, SID) values (3009, 5004);
+insert into PlayerSportsList (PID, SID) values (3010, 5004);
+insert into PlayerSportsList (PID, SID) values (3011, 5001);
+insert into PlayerSportsList (PID, SID) values (3012, 5001);
+insert into PlayerSportsList (PID, SID) values (3013, 5005);
+insert into PlayerSportsList (PID, SID) values (3014, 5005);
+insert into PlayerSportsList (PID, SID) values (3015, 5000);
+insert into PlayerSportsList (PID, SID) values (3016, 5004);
+insert into PlayerSportsList (PID, SID) values (3017, 5004);
+insert into PlayerSportsList (PID, SID) values (3018, 5004);
+insert into PlayerSportsList (PID, SID) values (3019, 5004);
+insert into PlayerSportsList (PID, SID) values (3020, 5003);
+insert into PlayerSportsList (PID, SID) values (3021, 5003);
+insert into PlayerSportsList (PID, SID) values (3022, 5004);
+insert into PlayerSportsList (PID, SID) values (3023, 5001);
+insert into PlayerSportsList (PID, SID) values (3024, 5002);
+insert into PlayerSportsList (PID, SID) values (3024, 5000);
+insert into PlayerSportsList (PID, SID) values (3024, 5001);
+
+
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6000, 'Cougars', NULL, NULL, 5000);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6001, 'Tigers', NULL, NULL, 5001);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6002, 'Wombats', NULL, NULL, 5002);
+
+UPDATE PlayerSportsList SET STD = 6000 WHERE SID = 5000;
+UPDATE PlayerSportsList SET STD = 6001 WHERE SID = 5001;
+UPDATE PlayerSportsList SET STD = 6002 WHERE SID = 5002;
+
+insert into Coaches (CID, FName, LName) values (100, 'John', 'Harris');
+insert into Coaches (CID, FName, LName) values (101, 'Greg', 'Johnson');
+insert into Coaches (CID, FName, LName) values (102, 'Savannah', 'Schwartz');
+insert into Coaches (CID, FName, LName) values (103, 'Camille', 'Severson');
+insert into Coaches (CID, FName, LName) values (104, 'Codey', 'Nikitenko');
+insert into Coaches (CID, FName, LName) values (105, 'Michael', 'Adams');
+insert into Coaches (CID, FName, LName) values (106, 'Jenna', 'Alvarez');
+insert into Coaches (CID, FName, LName) values (107, 'Samuel', 'March');
+insert into Coaches (CID, FName, LName) values (108, 'Jenny', 'Turmeric');
+insert into Coaches (CID, FName, LName) values (109, 'Larry', 'Brown');
+
+insert into CoachTeam (STD, CID) values (6000, 100);
+insert into CoachTeam (STD, CID) values (6000, 101);
+insert into CoachTeam (STD, CID) values (6001, 102);
+insert into CoachTeam (STD, CID) values (6001, 103);
+insert into CoachTeam (STD, CID) values (6002, 100);
+
+
+
+
+
+
+
+
+
+
