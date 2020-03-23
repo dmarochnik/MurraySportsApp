@@ -212,11 +212,11 @@ insert into CoachTeam (STD, CID) values (6001, 103);
 insert into CoachTeam (STD, CID) values (6002, 100);
 
 
-ALTER TABLE Players ADD RecTimeStamp date default now();
-ALTER TABLE Users ADD RecTimeStamp date default now();
-ALTER TABLE playersportslist ADD RecTimeStamp date default now();
-ALTER TABLE sportsteamdetails ADD RecTimeStamp date default now();
-ALTER TABLE Coaches ADD RecTimeStamp date default now();
+ALTER TABLE Players ADD RecTimeStamp datetime default now();
+ALTER TABLE Users ADD RecTimeStamp datetime default now();
+ALTER TABLE playersportslist ADD RecTimeStamp datetime default now();
+ALTER TABLE sportsteamdetails ADD RecTimeStamp datetime default now();
+ALTER TABLE Coaches ADD RecTimeStamp datetime default now();
 
 ALTER TABLE Players ADD DateModStamp datetime;
 ALTER TABLE Users ADD DateModStamp datetime;
