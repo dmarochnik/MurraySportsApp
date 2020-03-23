@@ -1,0 +1,11 @@
+//This trigger will update the DateModStamp column with the current date and time whenever a change is made to any of the Players in the Players table
+DELIMITER $$
+CREATE TRIGGER trg_DateMod
+BEFORE UPDATE ON Players
+FOR EACH ROW
+BEGIN
+	IF OLD.PID = NEW.PID THEN
+               SET NEW.DateModStamp = now();
+           END IF;
+END;$$
+DELIMITER ;
