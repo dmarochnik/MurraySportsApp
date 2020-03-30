@@ -50,3 +50,29 @@ DELIMITER ;
 
 //run this command to execute the program
 call delete_old_players();
+
+
+//This stored procedure will automatically delete records from the playersportslist table that are more than a year old. It also takes into account that eventually, there will be thousands of records in the database, and in order to be as efficient as possible and to prevent the program from crashing, it will work on 1000 records at a time, and it will complete once there are no more records in a batch that are over 1 year old.
+
+DELIMITER //
+CREATE PROCEDURE delete_old_psl()
+BEGIN
+    SET @increment = 0;
+    psl_loop: LOOP
+
+        DELETE FROM playersportslist
+        WHERE PID BETWEEN @increment AND @increment+999
+        AND DateCreatedStamp < DATE_SUB(CURRENT_DATE(), INTERVAL 1 YEAR);
+
+        IF @increment > (SELECT MAX(PID) FROM playersportslist) THEN
+            LEAVE psl_loop;
+        END IF;
+
+        SET @increment = @increment + 1000;
+
+    END LOOP psl_loop;
+END //
+DELIMITER ;
+
+//run this command to execute the program
+call delete_old_psl();
