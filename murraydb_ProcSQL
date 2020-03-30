@@ -76,3 +76,15 @@ DELIMITER ;
 
 //run this command to execute the program
 call delete_old_psl();
+
+
+//The psl_players_delete trigger will automatically delete child records in the playersportslist table when they are deleted from the players (parent) table.
+
+DELIMITER //
+CREATE TRIGGER psl_players_delete AFTER DELETE on players
+FOR EACH ROW
+BEGIN
+DELETE FROM playersportslist
+    WHERE playersportslist.pid = old.PID;
+END //
+DELIMITER ;
