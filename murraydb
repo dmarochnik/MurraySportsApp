@@ -189,10 +189,26 @@ insert into PlayerSportsList (PID, SID) values (3024, 5001);
 insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6000, 'Cougars', NULL, NULL, 5000);
 insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6001, 'Tigers', NULL, NULL, 5001);
 insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6002, 'Wombats', NULL, NULL, 5002);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6003, 'Lions', NULL, NULL, 5002);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6004, 'Dingos', NULL, NULL, 5003);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6005, 'Wolverines', NULL, NULL, 5003);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6006, 'Eagles', NULL, NULL, 5003);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6007, 'Cheetahs', NULL, NULL, 5004);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6008, 'Hurricanes', NULL, NULL, 5004);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6009, 'Earthquakes', NULL, NULL, 5005);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6010, 'Blizzards', NULL, NULL, 5005);
+insert into SportsTeamDetails (STD, TeamName, TeamAgeGroup, TeamSize, SID) values (6011, 'Bulldogs', NULL, NULL, 5005);
 
 UPDATE PlayerSportsList SET STD = 6000 WHERE SID = 5000;
 UPDATE PlayerSportsList SET STD = 6001 WHERE SID = 5001;
 UPDATE PlayerSportsList SET STD = 6002 WHERE SID = 5002;
+UPDATE PlayerSportsList SET STD = 6011 WHERE PID = 3004;
+UPDATE PlayerSportsList SET STD = 6011 WHERE PID = 3013;
+UPDATE PlayerSportsList SET STD = 6011 WHERE PID = 3014;
+UPDATE PlayerSportsList SET STD = 6007 WHERE PID = 3016;
+UPDATE PlayerSportsList SET STD = 6007 WHERE PID = 3017;
+UPDATE PlayerSportsList SET STD = 6007 WHERE PID = 3018;
+UPDATE PlayerSportsList SET STD = 6005 WHERE PID = 3005;
 
 insert into Coaches (CID, FName, LName) values (100, 'John', 'Harris');
 insert into Coaches (CID, FName, LName) values (101, 'Greg', 'Johnson');
