@@ -81,13 +81,13 @@ insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1002, 'BOSSM
 insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1003, 'CheesyGal','GoudaLove345!', 2);
 insert into Logins (LID, UserName, PasswordHash, UserLevel) values (1004, 'MorrisL','ParksRec10!!', 1);
 
-SELECT * FROM Logins;
 
 update logins set PasswordHash = MD5('Basketball145!') where LID = 1000;
 update logins set PasswordHash = MD5('MurrayRocks$$') where LID = 1001;
 update logins set PasswordHash = MD5('EltonJ0@hn') where LID = 1002;
 update logins set PasswordHash = MD5('GoudaLove345!') where LID = 1003;
 update logins set PasswordHash = MD5('ParksRec10!!') where LID = 1004;
+
 
 insert into SecurityQA (SecID, SecurityQ, SecurityA) values (200, 'What city were you born in?','Orem');
 insert into SecurityQA (SecID, SecurityQ, SecurityA) values (201, 'What was the name of your first pet?','Rocky');
@@ -99,7 +99,6 @@ insert into SecurityQA (SecID, SecurityQ, SecurityA) values (206, 'What city wer
 insert into SecurityQA (SecID, SecurityQ, SecurityA) values (207, 'What was the name of your first pet?','Smokey');
 insert into SecurityQA (SecID, SecurityQ, SecurityA) values (208, 'What was your childhood nickname?','Blondie');
 insert into SecurityQA (SecID, SecurityQ, SecurityA) values (209, 'What city were you born in?','Payson');
-
 
 insert into LogSec (LID, SecID) values (1000, 200);
 insert into LogSec (LID, SecID) values (1000, 201);
