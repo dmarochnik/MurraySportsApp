@@ -88,3 +88,24 @@ DELETE FROM playersportslist
     WHERE playersportslist.pid = old.PID;
 END //
 DELIMITER ;
+
+//This SP will pull up all the players who are missing a photo 
+DELIMITER $$
+CREATE PROCEDURE MissingImage()
+BEGIN
+	SELECT FName, LName, Age
+	FROM Players
+    WHERE RosterImage IS NULL
+    ORDER BY LName;
+    END$$
+
+
+//This SP will pull the full roster of players. It will display their photo if they have one uploaded. 
+
+DELIMITER $$
+CREATE PROCEDURE GetPlayers()
+BEGIN
+	SELECT FName, LName, Age, ImagePath
+	FROM Players
+    ORDER BY LName;
+    END$$
